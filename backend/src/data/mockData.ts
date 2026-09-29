@@ -1,0 +1,229 @@
+export interface Product {
+  id: string;
+  name: string;
+  tagline: string;
+  category: "Audio" | "Wearables" | "Gaming" | "Workspace" | "Smart Home";
+  price: number;
+  originalPrice: number;
+  rating: number;
+  reviewsCount: number;
+  badge?: "Trending" | "Pulse Drop" | "Best Seller" | "New" | "Staff Pick";
+  pulseScore: number;
+  image: string;
+  images: string[];
+  description: string;
+  features: string[];
+  specs: Record<string, string>;
+  colors: { name: string; hex: string }[];
+  inStock: boolean;
+  stockCount: number;
+  vendorId: string;
+}
+
+export interface Vendor {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  category: "Audio" | "Wearables" | "Workspace" | "Gaming" | "Smart Home";
+  rating: number;
+  reviewsCount: number;
+  ordersFulfilled: number;
+  dispatchRate: number;
+  avgResponseTime: string;
+  location: string;
+  badge: string;
+  logo: string;
+  banner: string;
+  followers: number;
+}
+
+export interface Order {
+  id: string;
+  userId: string;
+  customerName: string;
+  email: string;
+  items: {
+    productId: string;
+    productName: string;
+    quantity: number;
+    color?: string;
+    price: number;
+  }[];
+  subtotal: number;
+  discount: number;
+  shipping: number;
+  tax: number;
+  total: number;
+  status: "Confirmed" | "Processing" | "In Transit" | "Delivered" | "Cancelled";
+  trackingNumber: string;
+  carrier: string;
+  shippingAddress: string;
+  paymentMethod: string;
+  createdAt: string;
+}
+
+export let PRODUCTS_DB: Product[] = [
+  {
+    id: "pulse-anc-headphones",
+    name: "Pulse Pro ANC Wireless Headphones",
+    tagline: "Ultra-low latency studio acoustics with hybrid 48dB noise cancellation.",
+    category: "Audio",
+    price: 249,
+    originalPrice: 329,
+    rating: 4.9,
+    reviewsCount: 1420,
+    badge: "Pulse Drop",
+    pulseScore: 98,
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800&auto=format&fit=crop&q=80",
+    ],
+    description: "Engineered for audiophiles and remote power users alike.",
+    features: ["Hybrid 48dB Active Noise Cancellation", "Spatial 3D Audio", "60 Hours Battery"],
+    specs: { Driver: "45mm Neodymium Dynamic Drivers", Battery: "60 Hours" },
+    colors: [
+      { name: "Obsidian Black", hex: "#171717" },
+      { name: "Titanium Silver", hex: "#94a3b8" },
+    ],
+    inStock: true,
+    stockCount: 24,
+    vendorId: "aurasonic-acoustics",
+  },
+  {
+    id: "pulse-quantum-smartwatch",
+    name: "Quantum Pulse Ultra Smartwatch",
+    tagline: "Grade-5 titanium chassis with continuous sapphire AMOLED biometric telemetry.",
+    category: "Wearables",
+    price: 389,
+    originalPrice: 449,
+    rating: 4.8,
+    reviewsCount: 892,
+    badge: "Trending",
+    pulseScore: 95,
+    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80",
+    ],
+    description: "Precision-crafted with military-grade resilience and ECG monitoring.",
+    features: ["1.43\" Sapphire AMOLED Display", "Dual-frequency GNSS GPS", "10 ATM Waterproofing"],
+    specs: { Chassis: "Grade 5 Aerospace Titanium", Battery: "14 Days" },
+    colors: [
+      { name: "Space Black", hex: "#0f172a" },
+      { name: "Raw Titanium", hex: "#cbd5e1" },
+    ],
+    inStock: true,
+    stockCount: 18,
+    vendorId: "kronos-dynamics",
+  },
+  {
+    id: "pulse-apex-mechanical-keyboard",
+    name: "Apex 75 Wireless Mechanical Keyboard",
+    tagline: "Gasket mounted with hot-swappable tactile switches and sound-dampening foam.",
+    category: "Workspace",
+    price: 159,
+    originalPrice: 199,
+    rating: 4.9,
+    reviewsCount: 654,
+    badge: "Best Seller",
+    pulseScore: 92,
+    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&auto=format&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&auto=format&fit=crop&q=80",
+    ],
+    description: "A typing experience second to none with CNC anodized aluminum top case.",
+    features: ["75% Compact Layout with Volume Knob", "Tri-mode connectivity", "Gasket Mounted"],
+    specs: { Structure: "Gasket Mount", Weight: "980g" },
+    colors: [
+      { name: "Cyber Shadow", hex: "#18181b" },
+      { name: "Retro Frost", hex: "#e2e8f0" },
+    ],
+    inStock: true,
+    stockCount: 35,
+    vendorId: "apexforge-studios",
+  },
+];
+
+export let VENDORS_DB: Vendor[] = [
+  {
+    id: "aurasonic-acoustics",
+    name: "AuraSonic Acoustics",
+    tagline: "Studio-grade transducer engineering & hybrid noise-cancelling acoustics.",
+    description: "Crafted in Munich, AuraSonic delivers master-tuned dynamic drivers.",
+    category: "Audio",
+    rating: 4.9,
+    reviewsCount: 3240,
+    ordersFulfilled: 18450,
+    dispatchRate: 99.8,
+    avgResponseTime: "< 10 min",
+    location: "Munich, Germany",
+    badge: "Flagship Partner",
+    logo: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&auto=format&fit=crop&q=80",
+    banner: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=1200&auto=format&fit=crop&q=80",
+    followers: 12840,
+  },
+  {
+    id: "kronos-dynamics",
+    name: "Kronos BioDynamics",
+    tagline: "Aerospace titanium biometric telemetry & sapphire display smartwatches.",
+    description: "Pioneering continuous heart rate variability tracking and ECG telemetry.",
+    category: "Wearables",
+    rating: 4.8,
+    reviewsCount: 1980,
+    ordersFulfilled: 12300,
+    dispatchRate: 99.5,
+    avgResponseTime: "15 min",
+    location: "Zurich, Switzerland",
+    badge: "Pulse Prime",
+    logo: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&auto=format&fit=crop&q=80",
+    banner: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=1200&auto=format&fit=crop&q=80",
+    followers: 9450,
+  },
+  {
+    id: "apexforge-studios",
+    name: "ApexForge Studio",
+    tagline: "CNC milled gasket-mount mechanical keyboards and acoustic dampening.",
+    description: "Precision custom keyboards with factory-lubed linear switches.",
+    category: "Workspace",
+    rating: 4.9,
+    reviewsCount: 2450,
+    ordersFulfilled: 15600,
+    dispatchRate: 99.9,
+    avgResponseTime: "8 min",
+    location: "Tokyo, Japan",
+    badge: "Master Artisan",
+    logo: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=300&auto=format&fit=crop&q=80",
+    banner: "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=1200&auto=format&fit=crop&q=80",
+    followers: 16200,
+  },
+];
+
+export let ORDERS_DB: Order[] = [
+  {
+    id: "SP-984210",
+    userId: "user-1",
+    customerName: "Alex Rivera",
+    email: "alex.rivera@example.com",
+    items: [
+      {
+        productId: "pulse-anc-headphones",
+        productName: "Pulse Pro ANC Wireless Headphones",
+        quantity: 1,
+        color: "Obsidian Black",
+        price: 249,
+      },
+    ],
+    subtotal: 249,
+    discount: 24.9,
+    shipping: 0,
+    tax: 18.49,
+    total: 242.59,
+    status: "In Transit",
+    trackingNumber: "FX-9402849102US",
+    carrier: "Pulse Express 2-Day (FedEx)",
+    shippingAddress: "742 Evergreen Terrace, San Francisco, CA 94107",
+    paymentMethod: "Apple Pay",
+    createdAt: new Date().toISOString(),
+  },
+];
